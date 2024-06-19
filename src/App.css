@@ -16,13 +16,13 @@ html, body {
 
 .left-panel {
   background-color: #001e59;
-  width: 35%;
+  width: 23%;
   height: 100%;
 }
 
 .right-panel {
   background-color: white;
-  width: 60%;
+  width: 77%;
   height: 100%;
   display: flex;
   flex-direction: column;
