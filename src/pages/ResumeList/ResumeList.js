@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import styles from './ResumeList.module.css'; // CSS 모듈로 불러오기
+import styles from './ResumeList.module.css';
 
 function ResumeList({ baseUrl }) {
   const [resumes, setResumes] = useState([]);

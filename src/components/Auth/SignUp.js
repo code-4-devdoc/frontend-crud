@@ -1,14 +1,5 @@
-// 회원가입 페이지 컴포넌트
-
 import React from "react";
-import {
-  Button,
-  TextField,
-  Link,
-  Grid,
-  Container,
-  Typography,
-} from "@mui/material";
+import './Auth.css'; // CSS 파일 연동
 import { signup } from "../../service/ApiService";
 
 class SignUp extends React.Component {
@@ -20,7 +11,6 @@ class SignUp extends React.Component {
   // 회원가입 폼 제출 처리
   handleSubmit(event) {
     event.preventDefault();
-    // 오브젝트에서 form에 저장된 데이터를 맵의 형태로 바꿔줌.
     const data = new FormData(event.target);
     const username = data.get("username");
     const email = data.get("email");
@@ -35,69 +25,42 @@ class SignUp extends React.Component {
 
   render() {
     return (
-        <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
-          <form noValidate onSubmit={this.handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  회원 가입
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    autoComplete="fname"
+        <div className="App">
+          <div className="leftPanel">
+            <h1 className="devDocTitle">Dev<br />Doc</h1>
+          </div>
+          <div className="rightPanel">
+            <div className="loginContainer">
+              <h1 className="loginTitle">회원 가입</h1>
+              <form onSubmit={this.handleSubmit}>
+                <input
+                    type="text"
                     name="username"
-                    variant="outlined"
+                    placeholder="닉네임"
                     required
-                    fullWidth
-                    id="username"
-                    label="유저 이름"
-                    autoFocus
+                    className="textField"
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="이메일 주소"
+                <input
+                    type="email"
                     name="email"
-                    autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
+                    placeholder="이메일 (예: example@gmail.com)"
                     required
-                    fullWidth
-                    name="password"
-                    label="패스워드"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
+                    className="textField"
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                >
-                  계정 생성
-                </Button>
-              </Grid>
-            </Grid>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  이미 계정이 있습니까? 로그인 하세요.
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </Container>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="비밀번호"
+                    required
+                    className="textField"
+                />
+                <div className="buttonContainer">
+                  <button type="submit" className="loginButton">계정 생성</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
     );
   }
 }
