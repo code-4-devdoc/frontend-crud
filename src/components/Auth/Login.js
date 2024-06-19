@@ -30,7 +30,7 @@ class Login extends React.Component {
                 <input
                     type="email"
                     name="email"
-                    placeholder="이메일 주소"
+                    placeholder="이메일 (예: example@gmail.com)"
                     required
                     className="textField"
                 />
@@ -42,7 +42,7 @@ class Login extends React.Component {
                     className="textField"
                 />
                 <div className="buttonContainer">
-                  <button type="submit" className="loginButton">이메일 (예: example@gmail.com)</button>
+                  <button type="submit" className="loginButton">로그인</button>
                   <button
                       type="button"
                       className="signupButton"
