@@ -1,0 +1,198 @@
+
+.App {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.leftPanel {
+    background-color: #001e59;
+    width: 23%;
+    height: 100%;
+    display: flex; /* 추가된 부분 */
+    flex-direction: column; /* 추가된 부분 */
+    justify-content: flex-start; /* 추가된 부분 */
+    align-items: flex-start; /* 추가된 부분 */
+    padding: 20px; /* 추가된 부분 */
+    box-sizing: border-box; /* 추가된 부분 */
+}
+
+.devdocTitle {
+    color: white; /* 추가된 부분 */
+    margin: 0; /* 추가된 부분 */
+    font-size: 5rem; /* 추가된 부분 */
+}
+
+
+h1.title {
+    font-size: 2rem; /* 이력서 생성 */
+}
+
+h2.title {
+    font-size: 1.7rem; /* 이력서 관리 */
+}
+
+
+.rightPanel {
+    background-color: white;
+    width: 77%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.title {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+}
+
+
+.inputContainer {
+    background-color: #edf3fd;
+    border-radius: 10px; /* 둥근 모서리 */
+    padding: 20px; /* 내부 여백 */
+    margin-bottom: 20px; /* 하단 여백 */
+    width: 650px;
+}
+
+.label {
+    font-size: 1.5rem;
+    margin-right: 10px; /* 간격 추가 */
+    align-self: center; /* 수직 정렬 */
+}
+
+.resumeInput {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.resumeInput input {
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 500px;
+    height: 38px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.resumeInput button {
+    width: 60px;
+    height: 38px;
+    background-color: rgba(0, 69, 171, 1);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.inputDescription {
+    font-size: 0.9rem;
+    color: gray;
+    margin-top: 10px; /* 약간의 여백 추가 */
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
+
+}
+
+.resumeTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.resumeTable tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.resumeTable td {
+    padding: 8px;
+}
+
+.resumeTitle {
+    font-size: 1.3rem;
+    color: rgba(0, 30, 89, 1);
+    text-align: left; /* 왼쪽 정렬 */
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+
+.resumeDate {
+    font-size: 0.9rem;
+    color: gray;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.resumeActions {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    gap: 10px;
+    text-align: right;
+}
+
+.resumeActions button {
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+.noResumes {
+    text-align: center;
+    color: gray;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.resumeActions button {
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: rgba(0, 30, 89, 1); /* 텍스트 색상 */
+    background-color: transparent; /* 배경색 투명 */
+    border: 1px solid rgba(0, 30, 89, 1); /* 테두리 추가 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+}
+
+.resumeActions button:hover {
+    background-color: rgba(0, 30, 89, 0.1); /* 마우스 오버 시 배경색 */
+}
+
+/* pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: rgba(0, 30, 89, 1);
+}
+
+.pagination li a:hover {
+    text-decoration: underline;
+}
+
+.active a {
+    font-weight: bold;
+}
