@@ -16,6 +16,7 @@ html, body {
 
 .leftPanel {
     background-color: #001e59;
+    min-width: 200px;
     width: 23%;
     height: 100%;
     display: flex; /* 추가된 부분 */
@@ -36,6 +37,7 @@ html, body {
 
 
 .rightPanel {
+    min-width: 800px;
     background-color: white;
     width: 77%;
     height: 100%;
@@ -81,7 +83,8 @@ html, body {
 }
 
 .loginButton, .signupButton {
-    width: 60%;
+    width: 80%;
+    min-width: 320px;
     padding: 10px;
     margin-top: 20px;
     font-size: 1.2rem;
@@ -104,7 +107,7 @@ html, body {
 }
 
 .textField {
-    width: 500px;
+    width: 300px;
     padding: 12px;
     margin: 12px 0;
     border: 1px solid #ccc;

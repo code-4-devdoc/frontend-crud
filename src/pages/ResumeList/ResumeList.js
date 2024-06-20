@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import styles from './ResumeList.module.css';
+// import { Tooltip } from "react-tooltip";
+// import infoIcon from "../../assets/info-icon.png"
 
 function ResumeList({ baseUrl }) {
   const [resumes, setResumes] = useState([]);
@@ -103,65 +105,67 @@ function ResumeList({ baseUrl }) {
   return (
       <div className={styles.App}>
         <div className={styles.leftPanel}>
-          <h1 className={styles.devdocTitle}>Dev<br></br>Doc</h1>
+          <h1 className={styles.devdocTitle}>Dev
+            <div style={{marginTop: -30}}>Doc</div>
+          </h1>
         </div>
         <div className={styles.rightPanel}>
           <div className={styles.inputContainer}>
-            <h1 className={styles.title}>이력서 생성</h1>
-            <div><br></br></div>
-            <div className={styles.resumeInput}>
-              <span className={styles.label}>제목:</span>
-              <input
-                  type="text"
-                  placeholder="제목을 입력하세요"
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-              />
-              <button onClick={createResume}>등록</button>
+            <div className={styles.resumeInputBox}>
+              <div className={styles.resumeInput}>
+                <input
+                    type="text"
+                    placeholder="새로운 이력서의 제목을 입력하세요"
+                    value={newTitle}
+                    onChange={(e) => setNewTitle(e.target.value)}
+                />
+              </div>
+              <button className={styles.resumeInputButton} onClick={createResume}>생성</button>
             </div>
-            <p className={styles.inputDescription}>💡 생성한 이력서는 아래 목록에 추가됩니다.</p>
           </div>
 
-          <h2 className={styles.title}>목록</h2>
-          <div className={styles.divider}></div>
+          {/*<h2 className={styles.title}>목록</h2>
+          <div className={styles.divider}></div>*/}
 
-          {resumes.length === 0 ? (
-              <p className={styles.noResumes}>등록된 이력서가 없습니다.</p>
-          ) : (
-              <>
-                <table className={styles.resumeTable}>
-                  <tbody>
-                  {currentResumes.map((resume) => (
-                      <tr key={resume.id}>
-                        <td className={styles.resumeInfo}>
-                          <div className={styles.resumeTitle} onClick={() => navigate(`/resumes/${resume.id}`)}>
-                            {resume.title}
-                          </div>
-                          <div
-                              className={styles.resumeDate}>{resume.createdAt ? formatDateTime(resume.createdAt) : 'N/A'}</div>
-                        </td>
-                        <td className={styles.resumeActions}>
-                          <button onClick={() => navigate(`/resumes/${resume.id}`)}>수정</button>
-                          <button onClick={() => deleteResume(resume.id)}>삭제</button>
-                        </td>
-                      </tr>
-                  ))}
-                  </tbody>
-                </table>
-                <ReactPaginate
-                    previousLabel={'이전'}
-                    nextLabel={'다음'}
-                    breakLabel={'...'}
-                    breakClassName={'break-me'}
-                    pageCount={Math.ceil(resumes.length / itemsPerPage)}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={handlePageClick}
-                    containerClassName={styles.pagination}
-                    activeClassName={styles.active}
-                />
-              </>
-          )}
+          <div className={styles.resumeListsContainer}>
+            {resumes.length === 0 ? (
+                <p className={styles.noResumes}>등록된 이력서가 없습니다.</p>
+            ) : (
+                <>
+                  <table className={styles.resumeTable}>
+                    <tbody>
+                    {currentResumes.map((resume) => (
+                        <tr key={resume.id}>
+                          <td className={styles.resumeInfo}>
+                            <div className={styles.resumeTitle} onClick={() => navigate(`/resumes/${resume.id}`)}>
+                              {resume.title}
+                            </div>
+                            <div
+                                className={styles.resumeDate}>{resume.createdAt ? formatDateTime(resume.createdAt) : 'N/A'}</div>
+                          </td>
+                          <td className={styles.resumeActions}>
+                            <button onClick={() => navigate(`/resumes/${resume.id}`)}>수정</button>
+                            <button onClick={() => deleteResume(resume.id)}>삭제</button>
+                          </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                  </table>
+                  <ReactPaginate
+                      previousLabel={'이전'}
+                      nextLabel={'다음'}
+                      breakLabel={'...'}
+                      breakClassName={'break-me'}
+                      pageCount={Math.ceil(resumes.length / itemsPerPage)}
+                      marginPagesDisplayed={2}
+                      pageRangeDisplayed={5}
+                      onPageChange={handlePageClick}
+                      containerClassName={styles.pagination}
+                      activeClassName={styles.active}
+                  />
+                </>
+            )}
+          </div>
         </div>
       </div>
   );

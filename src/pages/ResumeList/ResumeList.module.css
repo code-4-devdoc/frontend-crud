@@ -9,6 +9,7 @@
 
 .leftPanel {
     background-color: #001e59;
+    min-width: 200px;
     width: 23%;
     height: 100%;
     display: flex; /* 추가된 부분 */
@@ -37,19 +38,21 @@ h2.title {
 
 .rightPanel {
     background-color: white;
+    min-width: 600px;
     width: 77%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     box-sizing: border-box;
 }
 
 .title {
-    margin: 0 0 10px 0;
+    margin: 0;
     font-size: 1.5rem;
+    text-align: center;
 }
 
 
@@ -58,7 +61,8 @@ h2.title {
     border-radius: 10px; /* 둥근 모서리 */
     padding: 20px; /* 내부 여백 */
     margin-bottom: 20px; /* 하단 여백 */
-    width: 650px;
+    width: 500px;
+    align-items: center;
 }
 
 .label {
@@ -67,28 +71,41 @@ h2.title {
     align-self: center; /* 수직 정렬 */
 }
 
+.resumeInputBox {
+    width: 500px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+}
+
 .resumeInput {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
+    padding: 5px;
 }
 
 .resumeInput input {
-    font-size: 1rem;
-    padding: 0.5rem;
-    width: 500px;
+    font-size: 1.2rem;
+    padding: 1rem;
+    width: 400px;
     height: 38px;
     margin-right: 10px;
     box-sizing: border-box;
+    border: none;
 }
 
-.resumeInput button {
-    width: 60px;
-    height: 38px;
+.resumeInput input:focus {
+    outline: none;
+    border: none;
+}
+
+.resumeInputButton {
+    width: 80px;
+    height: 50px;
     background-color: rgba(0, 69, 171, 1);
     color: white;
-    font-size: 16px;
+    font-size: 1.1rem;
     font-weight: bold;
     border-radius: 5px;
     border: none;
@@ -97,7 +114,7 @@ h2.title {
 }
 
 .inputDescription {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: gray;
     margin-top: 10px; /* 약간의 여백 추가 */
 }
@@ -110,43 +127,52 @@ h2.title {
 
 }
 
+.resumeListsContainer {
+    background-color: #edf3fd;
+    border-radius: 10px;
+    width: 550px;
+    padding: 10px;
+}
+
 .resumeTable {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 
-.resumeTable tr {
-    border-bottom: 1px solid #ddd;
+.resumeInfo {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
 }
+
 
 .resumeTable td {
-    padding: 8px;
+    padding: 15px;
+    background-color: white;
+    height: 50px;
 }
 
 .resumeTitle {
     font-size: 1.3rem;
     color: rgba(0, 30, 89, 1);
-    text-align: left; /* 왼쪽 정렬 */
+    text-align: center; /* 왼쪽 정렬 */
     cursor: pointer;
     /* text-decoration: underline; */
 }
 
 .resumeDate {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: gray;
-    text-align: left; /* 왼쪽 정렬 */
+    text-align: center; /* 왼쪽 정렬 */
 }
 
 .resumeActions {
     display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
+    justify-content: center; /* 오른쪽 정렬 */
     gap: 10px;
     text-align: right;
-}
-
-.resumeActions button {
-    font-size: 1rem;
-    padding: 0.5rem;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 .noResumes {
@@ -159,16 +185,17 @@ h2.title {
 .resumeActions button {
     font-size: 1rem;
     padding: 0.5rem;
-    color: rgba(0, 30, 89, 1); /* 텍스트 색상 */
-    background-color: transparent; /* 배경색 투명 */
-    border: 1px solid rgba(0, 30, 89, 1); /* 테두리 추가 */
-    border-radius: 5px; /* 테두리 둥글게 */
+    color: rgba(129, 172, 255, 1);
+    background-color: transparent;
+    border: 2px solid rgba(129, 172, 255, 1);
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+    transition: background-color 0.3s ease;
 }
 
 .resumeActions button:hover {
-    background-color: rgba(0, 30, 89, 0.1); /* 마우스 오버 시 배경색 */
+    background-color: rgba(129, 172, 255, 1); /* 마우스 오버 시 배경색 */
+    color: white;
 }
 
 /* pagination */
@@ -181,7 +208,7 @@ h2.title {
 
 .pagination li {
     display: inline;
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
 .pagination li a {
@@ -190,7 +217,9 @@ h2.title {
 }
 
 .pagination li a:hover {
-    text-decoration: underline;
+    /* text-decoration: underline;*/
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .active a {

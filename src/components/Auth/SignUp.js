@@ -27,7 +27,9 @@ class SignUp extends React.Component {
     return (
         <div className="App">
           <div className="leftPanel">
-            <h1 className="devDocTitle">Dev<br />Doc</h1>
+            <h1 className="devDocTitle">Dev
+              <div style={{marginTop: -30}}>Doc</div>
+            </h1>
           </div>
           <div className="rightPanel">
             <div className="loginContainer">
