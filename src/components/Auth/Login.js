@@ -1,5 +1,6 @@
 import React from "react";
-import './Auth.css'; // CSS 파일 연동
+import './Auth.css';
+import {signin} from "../../service/ApiService"; // CSS 파일 연동
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,7 +15,11 @@ class Login extends React.Component {
     const email = data.get("email");
     const password = data.get("password");
     // 로그인 처리 로직 (예시)
-    console.log({ email, password });
+    // 로그인 API 호출
+    signin({email: email, password: password}).catch(error => {
+      console.error("Login failed:", error); // 로그인 실패 시 콘솔에 에러 로깅
+      alert("로그인 실패: " + error); // 사용자에게 로그인 실패 알림
+    });
   }
 
   render() {
