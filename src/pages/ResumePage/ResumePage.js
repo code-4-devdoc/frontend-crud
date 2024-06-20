@@ -72,17 +72,25 @@ function ResumePage({ baseUrl }) {
     const [resumeTitle, setResumeTitle] = useState("");
     const [languages, setLanguages] = useState([]);
     const [awards, setAwards] = useState([]);
+    const [skills, setSkills] = useState([]);
+    const [careers, setCareers] = useState([]);
+    const [projects, setProjects] = useState([]);
+    const [certificates, setCertificates] = useState([]);
 
     // 데이터 불러오기
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await call(`/api/resumes/${resumeId}`, "GET");
-                const { title, languages, awards } = response;
+                const { title, languages, awards, skills, careers, certificates, projects } = response;
                 setResumeTitle(title || "");
                 setLanguages(languages || []);
                 setAwards(awards || []);
-                setActiveSections(['Language', 'Award']);  // 항상 Language와 Award 섹션을 활성화
+                setSkills(skills || []);
+                setCareers(careers || []);
+                setProjects(projects || []);
+                setCertificates(certificates || []);
+                setActiveSections(['Language', 'Award', 'Skill', 'Career', 'Project', 'Certificate']);  // 항상 섹션을 활성화
             } catch (error) {
                 console.error("Failed to fetch resume data", error);
             }
@@ -107,6 +115,10 @@ function ResumePage({ baseUrl }) {
                 title: resumeTitle,
                 languages: languages,
                 awards: awards,
+                skills: skills,
+                careers: careers,
+                projects: projects,
+                certificates: certificates,
             };
 
             await call(`/api/resumes/${resumeId}/save`, "POST", data);
@@ -147,7 +159,15 @@ function ResumePage({ baseUrl }) {
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 30, marginBottom: 10 }}>
                             <ResumeTitle type="text" value={resumeTitle} onChange={handleTitleChange} placeholder="이력서 제목 (저장용)" />
                         </div>
-                        <FormContent activeSections={activeSections} languages={languages} setLanguages={setLanguages} awards={awards} setAwards={setAwards} resumeId={resumeId} />
+                        <FormContent activeSections={activeSections} 
+                            languages={languages} setLanguages={setLanguages}
+                            awards={awards} setAwards={setAwards}
+                            skills={skills} setSkills={setSkills}
+                            careers={careers} setCareers={setCareers}
+                            projects={projects} setProjects={setProjects}
+                            certificates={certificates} setCertificates={setCertificates}
+                            resumeId={resumeId}
+                        />
                     </div>
                 </div>
             </div>

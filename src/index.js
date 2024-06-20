@@ -6,7 +6,6 @@ import './index.css';
 import AppRouter from './AppRouter';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-import { SkillProvider } from './contexts/SkillContext';
 
 // 환경변수를 사용해 API URL 설정
 const BASE_URL = process.env.REACT_APP_API_URL;
@@ -15,9 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <SkillProvider>
-                <AppRouter baseUrl={BASE_URL} /> {/* 라우터 컴포넌트 */}
-            </SkillProvider>
+            <AppRouter baseUrl={BASE_URL} /> {/* 라우터 컴포넌트 */}
         </BrowserRouter>
     </React.StrictMode>
 );

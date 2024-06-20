@@ -1,73 +1,57 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import SectionContainer from "../../ResumeCommon/SectionContainer";
 import AddRecord from "../../ResumeCommon/AddRecord";
-import MainSkill from "./MainSkill";
-import { SkillContext } from '../../../contexts/SkillContext';
+import SkillRecord from "./SkillRecord";
 
-const Skill = () => {
-    const { resumeId } = useParams();
-    const { setSkills } = useContext(SkillContext);
-    const [mainSkills, setMainSkills] = useState([]);
-
-    const initSkills = useCallback(() => {                          // updateSkills ID 할당
-        const updateSkills = [
-            { id: resumeId * 3 - 2, content: null },
-            { id: resumeId * 3 - 1, content: null },
-            { id: resumeId * 3, content: null }
-        ];
-        return updateSkills;
-    }, [resumeId]);
-
-    const [updateSkills, setUpdateSkills] = useState(initSkills());
-
+const Skill = ({ skills, setSkills }) => {
+    // 컴포넌트가 마운트될 때 local storage 에서 이전에 입력된 데이터들을 불러옴
     useEffect(() => {
-        setUpdateSkills(prev => prev.map((skill, index) => ({       // mainSkills -> updateSkills content 복사
-            ...skill,
-            content: mainSkills[index]?.content || null
-        })));
-    }, [mainSkills, initSkills]);
-
-    useEffect(() => {
-        setSkills(updateSkills);
-     }, [updateSkills, setSkills]);
-
-    const addMainSkill = () => {
-        if (mainSkills.length < 3) {    // 최대 3개까지만 추가 가능
-            setMainSkills(prev => [...prev, { id: prev.length, content: "" }]);
+        const savedSkills = JSON.parse(localStorage.getItem('skills'));
+        if (savedSkills) {
+            setSkills(savedSkills);
+        } else {
+            setSkills([{ id: null, techStack: '', description: '' }]);
         }
-    }
+    }, [setSkills]);
 
-    const removeMainSkill = (index) => {
-        setMainSkills(prev => prev.filter((_, idx) => idx !== index));
-        // idx !== index일 경우에만 mainSkills 배열에 추가 (즉, 현재 인덱스 요소만 제외하고 생성 되는 배열)
+    // 입력 데이터가 변경될 때마다 local storage 에 저장
+    useEffect(() => {
+        localStorage.setItem('skills', JSON.stringify(skills));
+    }, [skills]);
+
+    // 추가 함수
+    const addSkill = () => {
+        setSkills(prev => [
+            ...prev,
+            { id: prev.length, techStack: '', description: '' }
+        ]);
     };
 
-    const updateMainSkillContent = (index, newValue) => {
-        setMainSkills(prev => prev.map((skill, idx) =>
-            idx === index ? { ...skill, content: newValue === "null" ? null : newValue } : skill
-        ));
+    // 삭제 함수
+    const removeSkill = (index) => {
+        setSkills(prev => prev.filter((_, idx) => idx !== index));
+    };
+
+    // 업데이트 함수
+    const updateSkill = (index, field, value) => {
+        setSkills(prev => prev.map((skill, idx) => idx === index ? { ...skill, [field]: value } : skill));
     };
 
     return (
-        <SectionContainer title="Skill">
-            <div style={{height: 15}}></div>
-                {mainSkills && mainSkills.map((skill, index) => (
-                    <MainSkill 
-                        key={skill.id}
-                        onRemove={() => removeMainSkill(index)}
-                        onChangeContent={(content) => updateMainSkillContent(index, content)}
-                    />
-                ))}
-            <div style={{height: 15}}></div>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <AddRecord fieldName="주요 기술" onClick={addMainSkill}></AddRecord>
-                <div>
-                    <span style={{fontSize: 11, color: "rgba(90, 214, 169, 1)"}}>*</span><span style={{fontSize: 11}}> 주요 기술은 최대 3개까지 추가할 수 있습니다.</span>
-                </div>
-            </div>
+        <SectionContainer title="Skills">
+            {skills.map((skill, index) => (
+                <SkillRecord
+                    key={index}
+                    index={index}
+                    skill={skill}
+                    onRemove={() => removeSkill(index)}
+                    onUpdate={updateSkill}
+                />
+            ))}
+            <div style={{ height: 10 }}></div>
+            <AddRecord fieldName="기술" onClick={addSkill}></AddRecord>
         </SectionContainer>
     );
-}
+};
 
 export default Skill;

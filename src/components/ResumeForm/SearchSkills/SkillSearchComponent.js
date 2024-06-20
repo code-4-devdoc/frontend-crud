@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import SkillSelectorModal from "./SkillSelectorModal";
 import { icons as skillsData } from '../../../assets/icons';
 import styled from "styled-components";
@@ -35,55 +36,50 @@ const SkillsContainer = styled.div`
     flex-wrap: wrap;
 `
 
-const SkillSearchComponent = ({singleSelection = false}) => {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [selectedSkills, setSelectedSkills] = useState([]);
-    const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
+Modal.setAppElement('#root');
 
-    const openModal = () => setModalIsOpen(true); // 모달 창 열기
-    const closeModal = () => {
-        setModalIsOpen(false);
-        setSearchTerm(""); // 검색어 초기화
-    } // 모달 창 닫기
+const SkillSearchComponent = ({ singleSelection = false, onSkillChange, selectedSkills }) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => setModalIsOpen(true);
+    const closeModal = () => setModalIsOpen(false);
 
     const handleSelectSkill = (skill) => {
-        const skillBaseId = skill.id.split('-')[0];
         if (singleSelection) {
-            setSelectedSkills([skill]); // 단일 선택 모드에서는 항상 스킬을 하나만 유지
-        } else if (!selectedSkills.find(selected => selected.id.split('-')[0] === skillBaseId)) {
-            setSelectedSkills([...selectedSkills, skill]); // 배열에 스킬 추가
+            onSkillChange([skill]);
+        } else {
+            const updatedSkills = [...selectedSkills, skill];
+            onSkillChange(updatedSkills);
         }
         closeModal();
     };
 
     const handleRemoveSkill = (skillId) => {
-        // skillId를 prop으로 받음
-        setSelectedSkills(selectedSkills.filter(skill => skill.id !== skillId)); // skillId와 다른 스킬만 배열에 포함
+        const updatedSkills = selectedSkills.filter(skill => skill.id !== skillId);
+        onSkillChange(updatedSkills);                       // Skill&Career&Project Record 컴포넌트로 전달
     };
 
     return (
-            <div style={{display:"flex", alignItems:"center"}}>
-                <Button onClick={openModal}>검색</Button>
-                {selectedSkills && (
-                    <SkillsContainer>
-                        {selectedSkills.map((skill, index) => (
-                            <img key={index}
-                                 src={skill.icon}
-                                 alt={skill.name}
-                                 style={{ width: '35px', height: '35px', margin: '5px' }}
-                                 onClick={() => handleRemoveSkill(skill.id)}/>
-                        ))}
-                        {/*<span>{selectedSkill.name}</span>*/}
-                    </SkillsContainer>
-                )}
-                <SkillSelectorModal
-                    isOpen={modalIsOpen}
-                    closeModal={closeModal}
-                    selectSkill={handleSelectSkill}
-                    skillsData={skillsData}
-                    searchTerm={searchTerm}
-                />
-            </div>
+        <div style={{display:"flex", alignItems:"center"}}>
+            <Button onClick={openModal}>검색</Button>
+            {selectedSkills && (
+                <SkillsContainer>
+                    {selectedSkills.map((skill, index) => (
+                        <img key={index}
+                             src={skill.icon}
+                             alt={skill.name}
+                             style={{ width: '35px', height: '35px', margin: '5px' }}
+                             onClick={() => handleRemoveSkill(skill.id)} />
+                    ))}
+                </SkillsContainer>
+            )}
+            <SkillSelectorModal
+                isOpen={modalIsOpen}
+                closeModal={closeModal}
+                selectSkill={handleSelectSkill}
+                skillsData={skillsData}
+            />
+        </div>
     );
 };
 

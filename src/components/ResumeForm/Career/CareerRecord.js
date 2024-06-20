@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CheckboxLabels from "../../ResumeCommon/CheckboxLabels";
 import SkillSearchComponent from "../SearchSkills/SkillSearchComponent";
@@ -11,7 +11,7 @@ const Border = styled.div`
     margin-bottom: 10px;
     padding-left: 20px;
     padding-bottom: 20px;
-`
+`;
 
 const Input = styled.input`
     padding: 8px;
@@ -21,37 +21,42 @@ const Input = styled.input`
     width: 150px;
 `;
 
-const CareerRecord = ({onRemove}) => {
+const CareerRecord = ({ index, career, onRemove, onUpdate }) => {
+    const checkboxOption = "재직";
+    const [isChecked, setIsChecked] = useState(career.isCurrent);
 
-    const checkboxOption = "재직"
-    const [isChecked, setIsChecked] = useState(false);
     const handleCheckboxChange = (event) => {
-        setIsChecked(event.target.checked);
-        if (event.target.checked) {
-            setEndDate('');  // 체크박스 선택시 endDate 초기화
+        const checked = event.target.checked;
+        setIsChecked(checked);
+        onUpdate(index, 'isCurrent', checked);
+        if (checked) {
+            onUpdate(index, 'date', career.date.split('-')[0]); // 현재 재직 중이라면 종료일 제거
         }
     };
 
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
     const [error, setError] = useState('');
 
     const validateDate = (date) => {
         return /^\d{4}\.\d{2}$/.test(date);
     };
 
-    const handleDateChange = (setDate, value) => {
-        setDate(value);
-        if (validateDate(value) || value === '') {
+    const handleDateChange = (startDate, endDate) => {
+        const date = startDate + (endDate ? `-${endDate}` : '');
+        onUpdate(index, 'date', date);
+        if ((validateDate(startDate) && (endDate === '' || validateDate(endDate))) || date === '') {
             setError('');
         } else {
             setError('날짜 형식을 확인해 주세요.');
         }
     };
 
+    const handleSkillChange = (skills) => {
+        onUpdate(index, 'techStack', skills);
+    };
+
     return (
         <Border>
-            <div style={{display: "flex", justifyContent: "flex-end"}}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <button style={{
                     cursor: "pointer",
                     borderRadius: "0px 8px 0px 3px",
@@ -63,28 +68,32 @@ const CareerRecord = ({onRemove}) => {
                 }} onClick={onRemove}>-
                 </button>
             </div>
-            <div style={{display: "flex", gap: 5}}>
-                <Input placeholder="회사명"/>
-                <Input placeholder="부서명/직책"/>
+            <div style={{ display: "flex", gap: 5 }}>
+                <Input placeholder="회사명" value={career.company} onChange={(e) => onUpdate(index, 'company', e.target.value)} />
+                <Input placeholder="부서명/직책" value={career.department} onChange={(e) => onUpdate(index, 'department', e.target.value)} />
             </div>
-            <div style={{display: "flex", height: 35, alignItems: "center", marginTop: 5, gap: 5}}>
-                <Input style={{width: 70}} placeholder="YYYY.MM" value={startDate}
-                       onChange={(e) => handleDateChange(setStartDate, e.target.value)}/>
+            <div style={{ display: "flex", height: 35, alignItems: "center", marginTop: 5, gap: 5 }}>
+            <Input style={{ width: 70 }} placeholder="YYYY.MM" value={career.date.split('-')[0]}
+                    onChange={(e) => handleDateChange(e.target.value, career.date.split('-')[1] || '')} />
                 <span>-</span>
-                <Input style={{width: 70, marginRight: 10}} placeholder="YYYY.MM"
-                       value={endDate}
-                       onChange={(e) => handleDateChange(setEndDate, e.target.value)}
-                       disabled={isChecked}
+                <Input style={{ width: 70, marginRight: 10 }} placeholder="YYYY.MM"
+                    value={career.isCurrent ? '' : career.date.split('-')[1] || ''}
+                    onChange={(e) => handleDateChange(career.date.split('-')[0], e.target.value)}
+                    disabled={isChecked}
                 />
-                <CheckboxLabels option={checkboxOption} checked={isChecked}
-                                onChange={handleCheckboxChange}></CheckboxLabels>
+                <CheckboxLabels option={checkboxOption} checked={isChecked} onChange={handleCheckboxChange}></CheckboxLabels>
             </div>
-            {error && <div style={{fontSize: 13, color: 'rgba(202, 5, 5, 1)'}}>{error}</div>}
-            <div style={{height: 5}}></div>
-            <SkillSearchComponent></SkillSearchComponent>
+            {error && <div style={{ fontSize: 13, color: 'rgba(202, 5, 5, 1)' }}>{error}</div>}
+            <div style={{ height: 5 }}></div>
+            <SkillSearchComponent
+                selectedSkills={career.techStack}
+                onSkillChange={handleSkillChange}
+            />
             <Input as="textarea"
-                   style={{marginTop: 5, width: 620, height: 60, fontFamily: "inherit"}}
-                   placeholder="업무 내용 또는 성과를 입력하세요."
+                style={{ marginTop: 5, width: 620, height: 60, fontFamily: "inherit" }}
+                placeholder="업무 내용 또는 성과를 입력하세요."
+                value={career.description}
+                onChange={(e) => onUpdate(index, 'description', e.target.value)}
             />
         </Border>
     );
