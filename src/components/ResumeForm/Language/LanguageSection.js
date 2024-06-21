@@ -9,7 +9,8 @@ import SectionContainer from "../../ResumeCommon/SectionContainer";
 const LanguageSection = ({ languages, setLanguages, resumeId }) => {
     // 언어 추가 함수
     const addLanguage = () => {
-        setLanguages([...languages, { id: languages.length, language: '', testName: '', score: '', date: '' }]);
+        setLanguages([...languages,
+            { id: languages.length, language: '', testName: '', score: '', date: '' }]);
     };
 
     // 언어 제거 함수

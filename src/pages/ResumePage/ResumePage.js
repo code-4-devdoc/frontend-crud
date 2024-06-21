@@ -6,6 +6,7 @@ import styled from "styled-components";
 import CategoryList from "../../components/ResumeCategory/CategoryList";
 import FormContent from "../../components/ResumeForm/FormContent";
 import { call } from "../../service/ApiService";
+import certificate from "../../components/ResumeForm/Certificate/Certificate";
 
 // ResumePage.js: 이력서 작성 페이지(/resumes/{resumeId})를 구성, 데이터 불러오기, 저장하기 등의 기능을 담당
 
@@ -72,17 +73,27 @@ function ResumePage({ baseUrl }) {
     const [resumeTitle, setResumeTitle] = useState("");
     const [languages, setLanguages] = useState([]);
     const [awards, setAwards] = useState([]);
+    const [activities, setActivities] = useState([]);
+    const [certifications, setCertifications] = useState([]);
+    const [educations, setEducations] = useState([]);
+    const [educationCompletions, setEducationCompletions] = useState([]);
+    const [personalInfos, setPersonalInfos] = useState([]);
 
     // 데이터 불러오기
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await call(`/api/resumes/${resumeId}`, "GET");
-                const { title, languages, awards } = response;
+                const { title, languages, awards, activities, certificates, educations, educationCompletions, personalInfos } = response;
                 setResumeTitle(title || "");
                 setLanguages(languages || []);
                 setAwards(awards || []);
-                setActiveSections(['Language', 'Award']);  // 항상 Language와 Award 섹션을 활성화
+                setActivities(activities || []);
+                setCertifications(certificates || []);
+                setEducations(educations || []);
+                setEducationCompletions(educationCompletions || []);
+                setPersonalInfos(personalInfos || []);
+                setActiveSections(['Language', 'Award', 'Activity', 'Certificate', 'Education','Training', 'AboutMe']);  // 항상 Language와 Award와 Activity와 Certificate 섹션을 활성화
             } catch (error) {
                 console.error("Failed to fetch resume data", error);
             }
@@ -107,6 +118,11 @@ function ResumePage({ baseUrl }) {
                 title: resumeTitle,
                 languages: languages,
                 awards: awards,
+                activities: activities,
+                certifications: certifications,
+                educations: educations,
+                educationCompletions: educationCompletions,
+                personalInfos: personalInfos,
             };
 
             await call(`/api/resumes/${resumeId}/save`, "POST", data);
@@ -147,7 +163,15 @@ function ResumePage({ baseUrl }) {
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 30, marginBottom: 10 }}>
                             <ResumeTitle type="text" value={resumeTitle} onChange={handleTitleChange} placeholder="이력서 제목 (저장용)" />
                         </div>
-                        <FormContent activeSections={activeSections} languages={languages} setLanguages={setLanguages} awards={awards} setAwards={setAwards} resumeId={resumeId} />
+                        <FormContent activeSections={activeSections} activities={activities}
+                                     setActivities={setActivities} languages={languages}
+                                     setLanguages={setLanguages} awards={awards}
+                                     setAwards={setAwards} resumeId={resumeId}
+                                     setCertificates={setCertifications} certificates={certifications}
+                                     setEducations={setEducations} educations={educations}
+                                     educationCompletions={educationCompletions} setEducationCompletions={setEducationCompletions}
+                                     personalInfos={personalInfos} setPersonalInfos={setPersonalInfos}
+                        />
                     </div>
                 </div>
             </div>

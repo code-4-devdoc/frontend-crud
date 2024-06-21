@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
-import { call } from "../../../service/ApiService";
+import {call} from "../../../service/ApiService";
 
 // LanguageRecord.js: 개별 Language 항목의 입력을 처리하고 관리
 
@@ -21,7 +21,7 @@ const Input = styled.input`
     font-size: 15px;
 `;
 
-const LanguageRecord = ({ index, language, onRemove, onUpdate, resumeId }) => {
+const LanguageRecord = ({index, language, onRemove, onUpdate, resumeId}) => {
     // 에러 상태 관리
     const [error, setError] = useState('');
 
@@ -57,7 +57,7 @@ const LanguageRecord = ({ index, language, onRemove, onUpdate, resumeId }) => {
 
     return (
         <Border>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div style={{display: "flex", justifyContent: "flex-end"}}>
                 <button style={{
                     cursor: "pointer",
                     borderRadius: "0px 8px 0px 3px",
@@ -69,13 +69,25 @@ const LanguageRecord = ({ index, language, onRemove, onUpdate, resumeId }) => {
                 }} onClick={handleRemove}>-
                 </button>
             </div>
-            <div style={{ display: "flex", height: 35, marginTop: 5, gap: 5 }}>
-                <Input style={{ width: 150 }} placeholder="외국어명" value={language.language} onChange={(e) => handleInputChange('language', e.target.value)} />
-                <Input style={{ width: 150 }} placeholder="공인시험명" value={language.testName} onChange={(e) => handleInputChange('testName', e.target.value)} />
-                <Input style={{ width: 70 }} placeholder="점수" value={language.score} onChange={(e) => handleInputChange('score', e.target.value)} />
+            <div style={{display: "flex", height: 35, marginTop: 5, gap: 5}}>
+                <Input style={{width: 150}}
+                       placeholder="외국어명"
+                       value={language.language}
+                       onChange={(e) => handleInputChange('language', e.target.value)}/>
+                <Input style={{width: 150}}
+                       placeholder="공인시험명"
+                       value={language.testName}
+                       onChange={(e) => handleInputChange('testName', e.target.value)}/>
+                <Input style={{width: 70}}
+                       placeholder="점수"
+                       value={language.score}
+                       onChange={(e) => handleInputChange('score', e.target.value)}/>
                 <div>
-                    <Input style={{ width: 70 }} placeholder="YYYY.MM" value={language.date} onChange={(e) => handleDateChange(e.target.value)} />
-                    {error && <div style={{ fontSize: 13, color: 'rgba(202, 5, 5, 1)' }}>{error}</div>}
+                    <Input style={{width: 70}}
+                           placeholder="YYYY.MM"
+                           value={language.date}
+                           onChange={(e) => handleDateChange(e.target.value)}/>
+                    {error && <div style={{fontSize: 13, color: 'rgba(202, 5, 5, 1)'}}>{error}</div>}
                 </div>
             </div>
         </Border>
