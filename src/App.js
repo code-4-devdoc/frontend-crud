@@ -1,10 +1,8 @@
 import React from "react";
 import "./App.css";
 import logo from "./assets/main-logo.png"; // 로고 이미지 경로
-import { Button } from "@mui/material";
 
 class App extends React.Component {
-    // 컴포넌트 생성자
     constructor(props) {
         super(props);
         this.state = {
@@ -26,19 +24,20 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <div className="container">
-                    <div className="left-panel"></div> {/* 왼쪽 패널 */}
-                    <div className="right-panel">
-                        <img src={logo} style={{ width: 300, height: 300 }} alt="logo" /> {/* 로고 이미지 */}
-                        <p style={{ marginTop: '20px', fontSize: '17px', fontWeight: 'bold' }}>이력서를 작성하시겠어요?</p> {/* 텍스트 */}
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={this.handleButtonClick}
-                            style={{ marginTop: '10px' }}>
-                            이력서 작성 시작 👉 {/* 버튼 */}
-                        </Button>
-                    </div>
+                <div className="leftPanel">
+                    <h1 className="devDocTitle">Dev
+                        <div style={{marginTop: -30}}>Doc</div>
+                    </h1>
+                </div>
+                <div className="rightPanel">
+                    <img src={logo} className="App-logo" alt="logo" /> {/* 로고 이미지 */}
+                    <p className="App-text">이력서를 작성하시겠어요?</p> {/* 텍스트 */}
+                    <button
+                        className="App-button"
+                        onClick={this.handleButtonClick}
+                    >
+                        이력서 작성 시작 {/* 버튼 */}
+                    </button>
                 </div>
             </div>
         );

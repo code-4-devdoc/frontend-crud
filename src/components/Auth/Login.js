@@ -1,15 +1,6 @@
-// 로그인 페이지 컴포넌트
-
 import React from "react";
-import { signin } from "../../service/ApiService";
-import {
-  Link,
-  Button,
-  TextField,
-  Grid,
-  Container,
-  Typography,
-} from "@mui/material";
+import './Auth.css';
+import {signin} from "../../service/ApiService"; // CSS 파일 연동
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,71 +14,52 @@ class Login extends React.Component {
     const data = new FormData(event.target);
     const email = data.get("email");
     const password = data.get("password");
-    // ApiService의 signin 메서드를 사용 해 로그인.
-    signin({ email: email, password: password });
+    // 로그인 처리 로직 (예시)
+    // 로그인 API 호출
+    signin({email: email, password: password}).catch(error => {
+      console.error("Login failed:", error); // 로그인 실패 시 콘솔에 에러 로깅
+      alert("로그인 실패: " + error); // 사용자에게 로그인 실패 알림
+    });
   }
 
   render() {
     return (
-        <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography component="h1" variant="h5">
-                로그인
-              </Typography>
-            </Grid>
-          </Grid>
-          <form noValidate onSubmit={this.handleSubmit}>
-            {" "}
-            {/* submit 버튼을 누르면 handleSubmit이 실행됨. */}
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="이메일 주소"
+        <div className="App">
+          <div className="leftPanel">
+            <h1 className="devDocTitle">Dev<div style={{marginTop: -30}}>Doc</div></h1>
+          </div>
+          <div className="rightPanel">
+            <div className="loginContainer">
+              <h1 className="loginTitle">로그인</h1>
+              <form onSubmit={this.handleSubmit}>
+                <input
+                    type="email"
                     name="email"
-                    autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    variant="outlined"
+                    placeholder="이메일 (예: example@gmail.com)"
                     required
-                    fullWidth
-                    name="password"
-                    label="패스워드"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
+                    className="textField"
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                >
-                  로그인
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                    href="/signup"
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    style={{ marginTop: '10px' }}
-                >
-                  회원 가입
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Container>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="패스워드"
+                    required
+                    className="textField"
+                />
+                <div className="buttonContainer">
+                  <button type="submit" className="loginButton">로그인</button>
+                  <button
+                      type="button"
+                      className="signupButton"
+                      onClick={() => window.location.href='/signup'}
+                  >
+                    회원가입
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
     );
   }
 }
