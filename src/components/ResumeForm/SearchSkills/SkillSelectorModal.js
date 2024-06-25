@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import styled from "styled-components";
 
@@ -42,7 +42,7 @@ const SkillSelectorModal = ({ isOpen, closeModal, selectSkill, skillsData }) => 
         if (!isOpen) {
             setSearchTerm("");
         }
-    }, [isOpen]);
+    }, [isOpen, setSearchTerm]);
 
     const filteredSkills = skillsData.filter(skill => skill.name.toLowerCase().includes(searchTerm.toLowerCase()));
 

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import SectionContainer from "../../ResumeCommon/SectionContainer";
 import AddRecord from "../../ResumeCommon/AddRecord";
 import CertificateRecord from "./CertificateRecord";
-import AwardRecord from "../Award/AwardRecord";
 
 const Certificate = ({certificates, setCertificates, resumeId}) => {
 

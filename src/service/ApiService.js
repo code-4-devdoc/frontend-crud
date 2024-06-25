@@ -1,3 +1,5 @@
+// ApiService.js: API 호출 및 인증 처리 함수 정의
+
 import { API_BASE_URL } from "../app-config";
 const ACCESS_TOKEN = "ACCESS_TOKEN";
 

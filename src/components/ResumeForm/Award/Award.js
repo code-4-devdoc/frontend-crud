@@ -3,7 +3,7 @@ import AddRecord from "../../ResumeCommon/AddRecord";
 import SectionContainer from "../../ResumeCommon/SectionContainer";
 import AwardRecord from "./AwardRecord";
 
-const Award = ({ awards, setAwards, resumeId }) => {
+const Award = ({ awards, setAwards }) => {
     useEffect(() => {
         const savedAwards = JSON.parse(localStorage.getItem('awards'));
         if (savedAwards) {
@@ -29,19 +29,18 @@ const Award = ({ awards, setAwards, resumeId }) => {
     };
 
     const updateAward = (index, field, value) => {
-        setAwards(prev => prev.map((award, idx) => idx === index ? { ...award, [field]: value } : award));
+        setAwards(prev => prev.map((awrd, idx) => idx === index ? { ...awrd, [field]: value } : awrd));
     };
 
     return (
         <SectionContainer title="Award">
-            {awards.map((award, index) => (
+            {awards.map((awrd, index) => (
                 <AwardRecord
                     key={index}
                     index={index}
-                    award={award}
+                    award={awrd}
                     onRemove={() => removeAward(index)}
                     onUpdate={updateAward}
-                    resumeId={resumeId}
                 />
             ))}
             <div style={{ height: 10 }}></div>

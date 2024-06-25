@@ -1,4 +1,4 @@
-import AboutMe from './AboutMe/AboutMe';
+import AboutMe from './AboutMe/AboutMeSection';
 import Education from './Education/Education';
 import Career from './Career/Career';
 import Project from './Project/Project';
